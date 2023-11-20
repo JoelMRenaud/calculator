@@ -4,7 +4,6 @@ def makeList(f):
     for i in f:
         if i.isdigit():
             i = int(i)
-            print(i)
             if current == 0:
                 current = i
             else:
@@ -13,14 +12,27 @@ def makeList(f):
             if current != 0:
                 f2.append(current)
                 current = 0
-            f2.append(i)
+            if i != " ":
+                f2.append(i)
     if current != 0:
                 f2.append(current)
                 current = 0
     return f2
 
+def findx(f,x):
+    for i in range(len(f)):
+        if i > 0:
+            if f[i - 1] is int:
+                f[i - 1] = x * f[i-1]
+                del f[i]
+                return(findx(f,x))
+        elif f[i] == "x":
+            f[i] = x
+    return f
+
 
 def functionDoer(f, x):
+    f = findx(f,x)
     arithmatic = "+-*/"
     for i in range(len(f)):
         if f[i] == "x":
@@ -43,8 +55,11 @@ def functionDoer(f, x):
 
 
 f = input()
+x = input()
 f = makeList(f)
+f = findx(f,x)
 print(f)
+print(f[0].isnumeric())
 #x = i nput()
 #f = list(f)
 # f = functionDoer(f, x)  print(float(f[0]))  print(f)
