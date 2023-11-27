@@ -21,8 +21,8 @@ def makeList(f):
 
 def findx(f,x):
     for i in range(len(f)):
-        if i > 0:
-            if f[i - 1] is int:
+        if f[i] == "x" and i > 0:
+            if isinstance(f[i-1],int):
                 f[i - 1] = x * f[i-1]
                 del f[i]
                 return(findx(f,x))
@@ -32,34 +32,58 @@ def findx(f,x):
 
 
 def functionDoer(f, x):
-    f = findx(f,x)
-    arithmatic = "+-*/"
-    for i in range(len(f)):
-        if f[i] == "x":
-            print("w")
-        if f[i] == "*":
-            f[i] = int(f[i - 1]) * int(f[i + 1])
-            f2 = f
-            del f2[i - 1]
-            del f2[i]
-            return(functionDoer(f2, x))
-
-        elif f[i] == "/":
-            f[i] = int(f[i - 1]) / int(f[i + 1])
-            f2 = f
-            del f2[i - 1]
-            del f2[i]
-            return(functionDoer(f2, x))
-
+    
+    f = power(f,x)
+    f = xAndDiv(f,x)
+    f = addAndSub(f,x)
     return f
+
+def power(f,x):
+    for i in range(len(f)):
+        if f[i] == "^":
+            new = list
+            new = f[:i - 1]
+            new.append(f[i - 1] ** f[i + 1])
+            new = new + f[(i + 2):]
+            return xAndDiv(new, x)
+    return f
+
+def xAndDiv(f,x):
+    for i in range(len(f)):
+        if f[i] == "*":
+            new = list
+            new = f[:i - 1]
+            new.append(f[i - 1] * f[i + 1])
+            new = new + f[(i + 2):]
+            return xAndDiv(new, x)
+        elif f[i] == "/":
+            new = list
+            new = f[:i - 1]
+            new.append(f[i - 1] / f[i + 1])
+            new = new + f[(i + 2):]
+            return xAndDiv(new, x)
+    return f
+
+def addAndSub(f,x):
+    for i in range(len(f)):
+        if f[i] == "+":
+            new = list
+            new = f[:i - 1]
+            new.append(f[i - 1] + f[i + 1])
+            new = new + f[(i + 2):]
+            return addAndSub(new, x)
+        elif f[i] == "-":
+            new = list
+            new = f[:i - 1]
+            new.append(f[i - 1] - f[i + 1])
+            new = new + f[(i + 2):]
+            return addAndSub(new, x)
+    return f 
 
 
 f = input()
-x = input()
+x = int(input())
 f = makeList(f)
 f = findx(f,x)
-print(f)
-print(f[0].isnumeric())
-#x = i nput()
-#f = list(f)
-# f = functionDoer(f, x)  print(float(f[0]))  print(f)
+f = functionDoer(f, x)  
+print(f[0])
