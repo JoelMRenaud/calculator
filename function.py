@@ -32,7 +32,19 @@ def findx(f,x):
 
 
 def functionDoer(f, x):
-    
+    new = []
+    bracket = 0
+    for i in range(len(f)):
+        if f[i] == ")":
+            bracket = bracket - 1
+        elif f[i] == "(":
+            new = new + functionDoer(f[i + 1:],x)
+            bracket = bracket + 1
+        elif bracket == 0:
+            test = [f[i]]
+            new = new + test
+        
+        
     f = power(f,x)
     f = xAndDiv(f,x)
     f = addAndSub(f,x)
@@ -41,7 +53,7 @@ def functionDoer(f, x):
 def power(f,x):
     for i in range(len(f)):
         if f[i] == "^":
-            new = list
+            new = []
             new = f[:i - 1]
             new.append(f[i - 1] ** f[i + 1])
             new = new + f[(i + 2):]
@@ -51,13 +63,13 @@ def power(f,x):
 def xAndDiv(f,x):
     for i in range(len(f)):
         if f[i] == "*":
-            new = list
+            new = []
             new = f[:i - 1]
             new.append(f[i - 1] * f[i + 1])
             new = new + f[(i + 2):]
             return xAndDiv(new, x)
         elif f[i] == "/":
-            new = list
+            new = []
             new = f[:i - 1]
             new.append(f[i - 1] / f[i + 1])
             new = new + f[(i + 2):]
@@ -67,13 +79,13 @@ def xAndDiv(f,x):
 def addAndSub(f,x):
     for i in range(len(f)):
         if f[i] == "+":
-            new = list
+            new = []
             new = f[:i - 1]
             new.append(f[i - 1] + f[i + 1])
             new = new + f[(i + 2):]
             return addAndSub(new, x)
         elif f[i] == "-":
-            new = list
+            new = []
             new = f[:i - 1]
             new.append(f[i - 1] - f[i + 1])
             new = new + f[(i + 2):]
@@ -85,5 +97,6 @@ f = input()
 x = int(input())
 f = makeList(f)
 f = findx(f,x)
+print(f)
 f = functionDoer(f, x)  
 print(f[0])
