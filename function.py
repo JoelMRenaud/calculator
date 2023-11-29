@@ -26,6 +26,8 @@ def findx(f,x):
                 f[i - 1] = x * f[i-1]
                 del f[i]
                 return(findx(f,x))
+            else:
+                f[i] = x
         elif f[i] == "x":
             f[i] = x
     return f
@@ -40,11 +42,17 @@ def functionDoer(f, x):
         elif f[i] == "(":
             new = new + functionDoer(f[i + 1:],x)
             bracket = bracket + 1
+            if i > 0:
+                if isinstance(f[i-1],int):
+                    newVal = new[len(new) - 1] * new[len(new) - 2]
+                    new.pop()
+                    new.pop()
+                    new.append(newVal)
         elif bracket == 0:
             test = [f[i]]
             new = new + test
         
-        
+    f = new    
     f = power(f,x)
     f = xAndDiv(f,x)
     f = addAndSub(f,x)
@@ -57,7 +65,7 @@ def power(f,x):
             new = f[:i - 1]
             new.append(f[i - 1] ** f[i + 1])
             new = new + f[(i + 2):]
-            return xAndDiv(new, x)
+            return power(new, x)
     return f
 
 def xAndDiv(f,x):
@@ -97,6 +105,5 @@ f = input()
 x = int(input())
 f = makeList(f)
 f = findx(f,x)
-print(f)
 f = functionDoer(f, x)  
 print(f[0])
