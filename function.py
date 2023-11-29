@@ -100,10 +100,8 @@ def addAndSub(f,x):
             return addAndSub(new, x)
     return f 
 
-
-f = input()
-x = int(input())
-f = makeList(f)
-f = findx(f,x)
-f = functionDoer(f, x)  
-print(f[0])
+def funct(f,x):
+    f = makeList(f)
+    f = findx(f,x)
+    f = functionDoer(f, x)  
+    return f[0]
