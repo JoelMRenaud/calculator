@@ -10,4 +10,11 @@ newton:
 input the function to be iterated over
 input it's derivative
 
-Get your anser
+Get your answer
+
+To do list
+
+1. Trig
+2. basic visual calculator
+3. graphing
+4. derivatives :(

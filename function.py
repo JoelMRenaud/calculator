@@ -1,5 +1,6 @@
 def makeList(f):
     f2 = []
+    
     current = 0
     for i in f:
         if i.isdigit():

@@ -6,4 +6,4 @@ print("Input the value of x")
 x = int(input())
 
 final = funct(f,x)
-print("x = ", final)
+print("Answer = ", final)
